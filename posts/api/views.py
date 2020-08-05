@@ -33,9 +33,9 @@ from django.shortcuts import redirect, get_object_or_404
 
 
 class PostCreateAPIView(CreateAPIView):
-    queryset = Post.objects.all()
-    serializer_class = PostCreateUpdateSerializer
-    permission_classes = [IsAuthenticated]
+    # queryset = Post.objects.all()
+    # serializer_class = PostCreateUpdateSerializer
+    # permission_classes = [IsAuthenticated]
     renderer_classes = [TemplateHTMLRenderer]
     template_name = 'create.html'
 
@@ -46,6 +46,16 @@ class PostCreateAPIView(CreateAPIView):
     #         return Response({'serializer': serializer, 'profile': profile})
     #     serializer.save()
     #     return redirect('/api/posts/')
+    def get(self, request):
+        serializer = PostDetailSerializer()
+        return Response({'serializer': serializer})
+
+    def post(self, request):
+        serializer = PostCreateUpdateSerializer(data=request.data)
+        if not serializer.is_valid():
+            return Response({'serializer': serializer})
+        serializer.save()
+        return redirect('/api/posts/')
 
 
     def perform_create(self, serializer):
@@ -103,13 +113,13 @@ class PostUpdateAPIView(RetrieveUpdateAPIView):
 class PostDeleteAPIView(DestroyAPIView):
     queryset = Post.objects.all()
     serializer_class = PostDetailSerializer
-    # lookup_field = 'slug'
+    lookup_field = 'slug'
     # lookup_url_kwarg = "abc"
-    renderer_classes = [TemplateHTMLRenderer]
-    template_name = 'list.html'
-
-    def destroy(self, request, *args, **kwargs):
-        return self.destroy(request, *args, **kwargs)
+    # renderer_classes = [TemplateHTMLRenderer]
+    # template_name = 'list.html'
+    #
+    # def destroy(self, request, *args, **kwargs):
+    #     return self.destroy(request, *args, **kwargs)
 
 
 class PostListAPIView(ListAPIView):
