@@ -9,7 +9,9 @@
             <form action="{% url 'posts_api:update' slug=profile.slug %}" method="POST">
                 {% csrf_token %}
                 {% render_form serializer %}
-                <button type="submit" class="btn btn-dark">Save</button><a href="{% url 'posts_api:list'  %}" type="submit" class="btn btn-dark float-right">Back</a><a href="{% url 'posts_api:delete' slug=profile.slug %}" type="submit" class="btn btn-info btn-block mt-2">delete</a>
+                <button type="submit" class="btn btn-dark">Save</button>
+                <a href="{% url 'posts_api:list'  %}" type="submit" class="btn btn-dark float-right">Back</a>
+                <a href="{% url 'posts_api:delete' slug=profile.slug %}" type="submit" class="btn btn-info btn-block mt-2">delete</a>
             </form>
         </div>
     </div>
