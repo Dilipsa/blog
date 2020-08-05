@@ -7,7 +7,7 @@ from .views import(
     PostUpdateAPIView,
      )
 
-app_name = 'posts-api'
+app_name = 'posts_api'
 urlpatterns = [
     path('', PostListAPIView.as_view(), name='list'),
     path('create', PostCreateAPIView.as_view(), name='create'),
